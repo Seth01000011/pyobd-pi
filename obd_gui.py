@@ -9,6 +9,7 @@
 
 import os
 import wx
+import wx.adv
 import time
 from threading import Thread
 
@@ -316,17 +317,17 @@ class OBDLoadingPanel(wx.Panel):
         image = wx.Image(BACKGROUND_FILENAME) 
         width, height = wx.GetDisplaySize() 
         image = image.Scale(width, height, wx.IMAGE_QUALITY_HIGH)
-        self.bitmap = wx.BitmapFromImage(image) 
+        self.bitmap = wx.Bitmap(image) 
         self.Bind(wx.EVT_PAINT, self.OnPaint)
 
         # Logo
-        bitmap = wx.Bitmap(LOGO_FILENAME)
-        width, height = bitmap.GetSize()
-        image = wx.ImageFromBitmap(bitmap)
-        image = image.Scale(width/6, height/6, wx.IMAGE_QUALITY_HIGH)
-        bitmap = wx.BitmapFromImage(image)
-        control = wx.StaticBitmap(self, wx.ID_ANY, bitmap)
-        control.SetPosition((10, 10)) 
+       # bitmap = wx.Bitmap(LOGO_FILENAME)
+       # width, height = bitmap.GetSize()
+       # image = bitmap.ConvertToImage(bitmap)
+       # image = image.Scale(width/6, height/6, wx.IMAGE_QUALITY_HIGH)
+       # bitmap = wx.BitmapFromImage(image)
+       # control = wx.StaticBitmap(self, wx.ID_ANY, bitmap)
+       # control.SetPosition((10, 10)) 
 
         # Create an accelerator table
         cid = wx.NewId()
@@ -429,7 +430,7 @@ class OBDFrame(wx.Frame):
         image = wx.Image(BACKGROUND_FILENAME) 
         width, height = wx.GetDisplaySize() 
         image = image.Scale(width, height, wx.IMAGE_QUALITY_HIGH)
-        self.bitmap = wx.BitmapFromImage(image) 
+        self.bitmap = wx.Bitmap(image) 
         self.Bind(wx.EVT_PAINT, self.OnPaint)
 
         self.panelLoading = OBDLoadingPanel(self)
@@ -495,7 +496,7 @@ class OBDFrame0(wx.Frame):
 
 #-------------------------------------------------------------------------------
 
-class OBDSplashScreen(wx.SplashScreen):
+class OBDSplashScreen(wx.adv.SplashScreen):
     """
     Splash screen.
     """
