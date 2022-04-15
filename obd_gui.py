@@ -246,6 +246,7 @@ class OBDPanelGauges(wx.Panel):
         # Layout
         boxSizerMain.Add(gridSizer, 1, wx.EXPAND | wx.ALL, 10)
         self.SetSizer(boxSizerMain)
+        self.Fit()
         self.Refresh()
         self.Layout() 
 
@@ -315,19 +316,21 @@ class OBDLoadingPanel(wx.Panel):
 
         # Background image
         image = wx.Image(BACKGROUND_FILENAME) 
-        width, height = wx.GetDisplaySize() 
+        width, height = wx.GetDisplaySize()
         image = image.Scale(width, height, wx.IMAGE_QUALITY_HIGH)
         self.bitmap = wx.Bitmap(image) 
         self.Bind(wx.EVT_PAINT, self.OnPaint)
 
         # Logo
-       # bitmap = wx.Bitmap(LOGO_FILENAME)
-       # width, height = bitmap.GetSize()
-       # image = bitmap.ConvertToImage(bitmap)
-       # image = image.Scale(width/6, height/6, wx.IMAGE_QUALITY_HIGH)
-       # bitmap = wx.BitmapFromImage(image)
-       # control = wx.StaticBitmap(self, wx.ID_ANY, bitmap)
-       # control.SetPosition((10, 10)) 
+        bitmap = wx.Bitmap(LOGO_FILENAME)
+        width, height = bitmap.GetSize()
+        #image = bitmap.ConvertToImage(bitmap)
+        #removed the above line and program functions properly
+        image = bitmap.ConvertToImage()
+        image = image.Scale(width/6, height/6, wx.IMAGE_QUALITY_HIGH)
+        bitmap = wx.BitmapFromImage(image)
+        control = wx.StaticBitmap(self, wx.ID_ANY, bitmap)
+        control.SetPosition((10, 10)) 
 
         # Create an accelerator table
         cid = wx.NewId()
@@ -357,6 +360,7 @@ class OBDLoadingPanel(wx.Panel):
         self.textCtrl = OBDText(self)
         boxSizer.Add(self.textCtrl, 1, wx.EXPAND | wx.ALL, 92)
         self.SetSizer(boxSizer)
+        self.Fit()
         font3 = wx.Font(16, wx.ROMAN, wx.NORMAL, wx.NORMAL, faceName="Monaco")
         self.textCtrl.SetFont(font3)
         self.textCtrl.AddText(" Opening interface (serial port)\n")     
